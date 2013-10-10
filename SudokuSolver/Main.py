@@ -72,7 +72,7 @@ class Main:
     Checks every position in the given row (y-axis) for single numbers, if it finds a position that only contains a 
     single value, it removes that value from the list of alternatives for the given position.
     """
-    def checkRow(self, y, l):
+    def removeSinglesFromRow(self, y, l):
         
         for column in self.matrix[y]:
             
@@ -85,9 +85,9 @@ class Main:
         return
     
     """
-    The same as checkRow, but goes over each position in a column.
+    The same as removeSinglesFromRow, but goes over each position in a column.
     """
-    def checkColumn(self, x, l):
+    def removeSinglesFromColumn(self, x, l):
         
         for i in range(len(self.matrix)):
             position = self.matrix[i][x]
@@ -101,9 +101,9 @@ class Main:
         return
     
     """
-    Same as checkRow and checkColumn, but goes over every position in a block (3x3).
+    Same as removeSinglesFromRow and removeSinglesFromColumn, but goes over every position in a block (3x3).
     """
-    def checkBlock(self, x, y, l):
+    def removeSinglesFromBlock(self, x, y, l):
         
         # Move the pointers to the upper-left-corner of the block.
         pointer_x = int((x/3)) * 3 
@@ -121,11 +121,11 @@ class Main:
         
         return
     
-    def checkOptions(self, x, y, l):
+    def reduceAlternatives(self, x, y, l):
         
-        self.checkRow(y, l)
-        self.checkColumn(x, l)
-        self.checkBlock(x, y, l)
+        self.removeSinglesFromRow(y, l)
+        self.removeSinglesFromColumn(x, l)
+        self.removeSinglesFromBlock(x, y, l)
         
         if len(l) > 1:
             self.unfinished_positions += 1
@@ -150,7 +150,7 @@ class Main:
         for row in self.matrix:
             for column in row:
                 if len(column) > 1: # If there are more than 1 alternative in the list
-                    self.checkOptions(row.index(column), self.matrix.index(row), column)
+                    self.reduceAlternatives(row.index(column), self.matrix.index(row), column)
                 
         if self.unfinished_positions != 0:
             self.calculateBoard()
