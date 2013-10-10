@@ -5,7 +5,7 @@ class Main:
     def input(self, msg, legal):
         while True:
             try:
-                value = int(raw_input(msg))
+                value = int(input(msg))
                 if value not in legal:
                     raise ValueError()
                 break
@@ -106,8 +106,8 @@ class Main:
     def checkBlock(self, x, y, l):
         
         # Move the pointers to the upper-left-corner of the block.
-        pointer_x = (x/3) * 3 
-        pointer_y = (y/3) * 3
+        pointer_x = int((x/3)) * 3 
+        pointer_y = int((y/3)) * 3
         
         for i in range(3):
             for j in range(3):
@@ -134,34 +134,13 @@ class Main:
         
         return
     
-    def isUniqueAlternative(self, x, y, value):
-        
-        self.isUniqueRow(y, value)
-        self.isUniqueColumn(x, value)
-        self.isUniqueBlock(x, y, value)
-        
-        return
-    
-    def checkAndAddUnique(self):
-        
-        for row in self.matrix:
-            for column in row:
-                if len(column) > 1:
-                    for alternative in column:
-                        self.isUniqueAlternative(row.index(column), self.matrix.index(row), alternative)
-        
-        return
-    
     def calculateBoard(self):
         
         print("\ncalculateBoard - Recursion #" + str(self.tries)) # debug
         
         # Prevent possible endless loop.
         if self.tries >= 15:
-            
-            self.checkAndAddUnique()
-            
-            #print("WARNING! Aborting calculateBoard since it has been called 15 or more times!")
+            print("WARNING! Aborting calculateBoard since it has been called 15 or more times!")
             return
         else:
             self.tries += 1
@@ -186,7 +165,7 @@ class Main:
         
         while True:
             try:
-                save = open(raw_input("\nPlease enter the name of the file: "), 'rU')
+                save = open(input("\nPlease enter the name of the file: "), 'rU')
                 break
             except IOError:
                 if self.input("Error! File not found! Enter 1 to try again, or 0 to abort: ", [0,1]) == 0:
