@@ -180,15 +180,15 @@ def main():
 
         current_milli_time = lambda: int(round(time.time() * 1000))
         
-        start = current_milli_time
+        start = current_milli_time()
         solver = sudoku.Solver();
         solution = solver.findSolution( st );
-        print("It took " + str((current_milli_time - start)*1000) + " seconds to complete.")
+        print("It took " + str((current_milli_time() - start)/1000) + " seconds to complete.")
         
         # print out values
-        for i in range(9):
-                for j in range(9):
-                        print( solution._m_val[i][j] )
+        #for i in range(9):
+        #        for j in range(9):
+        #                print( solution._m_val[i][j] )
 
                         
 
