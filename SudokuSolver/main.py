@@ -8,7 +8,7 @@ def main():
 
         # Create Sudoku table manually        
         st = sudoku.SudokuTable();
-        '''
+        
         # Easy example, using only filling ones.
         # Testrun resulted immediately
         st.addValue(0, 0, 6)
@@ -48,7 +48,7 @@ def main():
         st.addValue(8, 5, 4)
         st.addValue(8, 8, 5)
         print("This is an Easy Example!")
-        
+        '''
         # Medium example 1, using Nodes in shallow level.
         # Testrun resulted within 30 seconds
         st.addValue(0, 1, 9)
@@ -77,7 +77,7 @@ def main():
         st.addValue(8, 6, 1)
         st.addValue(8, 7, 3)		
         print("This is a Medium Example 1!")
-        '''
+        
         # Medium example 2, using Nodes.
         # Testrun resulted within 90 seconds
         st.addValue(0, 4, 1)
@@ -106,7 +106,7 @@ def main():
         st.addValue(8, 2, 6)
         st.addValue(8, 4, 8)
         print("This is a Medium Example 2!")
-        '''
+        
         # Hard example 1, using Nodes in deeper level.
         # Testrun about one hour without reaching result
         st.addValue(0, 5, 8)
@@ -186,9 +186,9 @@ def main():
         print("It took " + str((current_milli_time() - start)/1000) + " seconds to complete.")
         
         # print out values
-        #for i in range(9):
-        #        for j in range(9):
-        #                print( solution._m_val[i][j] )
+        for i in range(9):
+                for j in range(9):
+                        print( solution._m_val[i][j] )
 
                         
 
