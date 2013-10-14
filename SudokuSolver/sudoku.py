@@ -203,15 +203,15 @@ class Solver(object):
 		self.FinalSolution = None
 	def findSolution(self, SudokuTable):
 		root = Node(SudokuTable)
-		solutionNode = None
+		#solutionNode = None
 		
-		self.investigateOptions(root, solutionNode)
+		self.investigateOptions(root)
 		solution = None
 		if self.FinalSolution != None:
 			solution = self.FinalSolution._m_SudokuTable
 		return solution
 
-	def investigateOptions(self, root, solutionNode):
+	def investigateOptions(self, root):
 		#DisplayTable dt;
 		# dt = new DisplayTable();
 		#dt.AddTable(root.m_SudokuTable.m_val);
@@ -239,8 +239,8 @@ class Solver(object):
 				
 				
 				# now we investigate each child
-				self.investigateOptions(root._m_children[OptionIndex], solutionNode)
-				if solutionNode != None and solutionNode._m_SudokuTable.isSolved():
+				self.investigateOptions(root._m_children[OptionIndex])
+				if self.FinalSolution != None and self.FinalSolution._m_SudokuTable.isSolved():
 					return 
 				root._m_children[OptionIndex] = None
 				#GC.Collect();
