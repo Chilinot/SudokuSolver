@@ -44,7 +44,7 @@ class SudokuTable: # (object)
 					self._m_val[i][j] = st._m_val[i][j]
 					j += 1
 				i += 1
-	def StIsNoneContructor(self, st):  #sudoku table initiate
+	def stIsNoneContructor(self, st):  #sudoku table initiate
 		self._m_val = [[int for j in range(9)] for i in range(9)]
 		self._m_OptionMatrix =[[OptionList() for j in range(9)] for i in range(9)]
 		i = 0
@@ -55,11 +55,11 @@ class SudokuTable: # (object)
 				j += 1
 			i += 1
 
-	def AddValue(self, i, j, value):  
+	def addValue(self, i, j, value):  
 		self._m_val[i][j] = value
 
-	def GetLowestNumberOfOptionsList(self):
-		self.ComputeAllOptions()
+	def getLowestNumberOfOptionsList(self):
+		self.computeAllOptions()
 		minCount = 999999  #initiate minimum number of option counting as max value of integer in the system
 		minOp = OptionList()
 		i = 0
@@ -73,7 +73,7 @@ class SudokuTable: # (object)
 			i += 1
 		return minOp
 
-	def FindPossibilities(self, i, j):
+	def findPossibilities(self, i, j):
 		op = OptionList()
 		if self._m_val[i][j] != 0:
 			return op
@@ -119,7 +119,7 @@ class SudokuTable: # (object)
 				idx += 1
 		return op
 
-	def IsSolved(self):
+	def isSolved(self):
 		checkSum = 45 # 9+8+7...+ 1
 		# Check row and column sums
 		j = 0
@@ -153,28 +153,28 @@ class SudokuTable: # (object)
 			by += 1
 		return True
 
-	def ComputeAllOptions(self):
+	def computeAllOptions(self):
 		i = 0
 		while i < 9:
 			j = 0
 			while j < 9:
-				self._m_OptionMatrix[i][j] = self.FindPossibilities(i, j)
+				self._m_OptionMatrix[i][j] = self.findPossibilities(i, j)
 				j += 1
 			i += 1
 
-	def ComputeAllSingles(self):
-		NbLowestOptions = len(self.GetLowestNumberOfOptionsList().options)
+	def computeAllSingles(self):
+		NbLowestOptions = len(self.getLowestNumberOfOptionsList().options)
 		while NbLowestOptions < 2 and NbLowestOptions != 0:
 			i = 0
 			while i < 9:
 				j = 0
 				while j < 9:
-					opt = self.FindPossibilities(i, j)
+					opt = self.findPossibilities(i, j)
 					if len(opt.options) == 1:
 						self._m_val[i][j] = opt.options[0].value
 					j += 1
 				i += 1
-			NbLowestOptions = len(self.GetLowestNumberOfOptionsList().options)
+			NbLowestOptions = len(self.getLowestNumberOfOptionsList().options)
 
 class Node(object):
 	def __init__(self, st = None):
@@ -187,11 +187,11 @@ class Node(object):
 			self._m_children = list()
 
 	# For each new option we create a child with a new sodoku table
-	def AddOption(self, op):
+	def addOption(self, op):
 		# Create new table
 		newTable = SudokuTable(self._m_SudokuTable)
 		# Add new option to this table
-		newTable.AddValue(op.i, op.j, op.value)
+		newTable.addValue(op.i, op.j, op.value)
 		# Create new node with the new table
 		newNode = Node(newTable)
 		self._m_children.append(newNode)
@@ -201,30 +201,30 @@ class Solver(object):
 		self._startDepth = 0
 		self._currentDepth = 0
 		self.FinalSolution = None
-	def FindSolution(self, SudokuTable):
+	def findSolution(self, SudokuTable):
 		root = Node(SudokuTable)
 		solutionNode = None
 		
-		self.InvestigateOptions(root, solutionNode)
+		self.investigateOptions(root, solutionNode)
 		solution = None
 		if self.FinalSolution != None:
 			solution = self.FinalSolution._m_SudokuTable
 		return solution
 
-	def InvestigateOptions(self, root, solutionNode):
+	def investigateOptions(self, root, solutionNode):
 		#DisplayTable dt;
 		# dt = new DisplayTable();
 		#dt.AddTable(root.m_SudokuTable.m_val);
 		#dt.ShowDialog();
-		root._m_SudokuTable.ComputeAllSingles()
+		root._m_SudokuTable.computeAllSingles()
 		#dt = new DisplayTable();
 		#dt.AddTable(root.m_SudokuTable.m_val);
 		#dt.ShowDialog();
-		if root._m_SudokuTable.IsSolved():
+		if root._m_SudokuTable.isSolved():
 			self.FinalSolution = root
 		else:
-			root._m_SudokuTable.ComputeAllOptions()
-			optionList = root._m_SudokuTable.GetLowestNumberOfOptionsList()
+			root._m_SudokuTable.computeAllOptions()
+			optionList = root._m_SudokuTable.getLowestNumberOfOptionsList()
 			# If there are no options there is no solution
 			if len(optionList.options) == 0:
 				#solutionNode = null;
@@ -235,12 +235,12 @@ class Solver(object):
 			#op is an option
 				#op = enumerator.Current
 				# A new child node with a new sodoku table is created for each option
-				root.AddOption(op)
+				root.addOption(op)
 				
 				
 				# now we investigate each child
-				self.InvestigateOptions(root._m_children[OptionIndex], solutionNode)
-				if solutionNode != None and solutionNode._m_SudokuTable.IsSolved():
+				self.investigateOptions(root._m_children[OptionIndex], solutionNode)
+				if solutionNode != None and solutionNode._m_SudokuTable.isSolved():
 					return 
 				root._m_children[OptionIndex] = None
 				#GC.Collect();
