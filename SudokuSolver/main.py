@@ -1,4 +1,3 @@
-
 #Wentings main startup function
 
 #import solving logic:
@@ -7,7 +6,7 @@ import sudoku
 def main():
 
         # Create Sudoku table manually        
-        st = sudoku.SudokuTable();
+        st = sudoku.SudokuTable()
         
         # Easy example, using only filling ones.
         # Testrun resulted immediately
@@ -50,7 +49,7 @@ def main():
         print("This is an Easy Example!")
         '''
         # Medium example 1, using Nodes in shallow level.
-        # Testrun resulted within 30 seconds
+        # Testrun resulted within 3 seconds.
         st.addValue(0, 1, 9)
         st.addValue(0, 8, 1)
         st.addValue(2, 0, 3)
@@ -79,7 +78,7 @@ def main():
         print("This is a Medium Example 1!")
         
         # Medium example 2, using Nodes.
-        # Testrun resulted within 90 seconds
+        # Testrun resulted immediately.
         st.addValue(0, 4, 1)
         st.addValue(1, 5, 2)
         st.addValue(2, 3, 8)
@@ -108,7 +107,7 @@ def main():
         print("This is a Medium Example 2!")
         
         # Hard example 1, using Nodes in deeper level.
-        # Testrun about one hour without reaching result
+        # Testrun resulted within 20 minutes.
         st.addValue(0, 5, 8)
         st.addValue(0, 6, 1)
         st.addValue(1, 0, 8)
@@ -129,7 +128,7 @@ def main():
         st.addValue(8, 1, 8)
         st.addValue(8, 7, 9)
         st.addValue(8, 8, 3)
-        print("This is a Hard Example 1!","Caution: Very long Runtime!!! It took one hour without reaching result")
+        print("This is a Hard Example 1!")
 
         # Hard example 2
         # Not tested yet
@@ -181,8 +180,8 @@ def main():
         current_milli_time = lambda: int(round(time.time() * 1000))
         
         start = current_milli_time()
-        solver = sudoku.Solver();
-        solution = solver.findSolution( st );
+        solver = sudoku.Solver()
+        solution = solver.FindSolution( st )
         print("It took " + str((current_milli_time() - start)/1000) + " seconds to complete.")
         
         # print out values
