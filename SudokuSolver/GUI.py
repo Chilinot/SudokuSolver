@@ -2,6 +2,7 @@ import sudoku
 
 import tkinter
 from tkinter.messagebox import showerror
+from tkinter.filedialog import askopenfilename, asksaveasfilename
 import sys
 
 class GUI:
@@ -20,10 +21,49 @@ class GUI:
                     e = tkinter.Entry(frame, width=3, justify=tkinter.CENTER)
                     
                 e.grid(row=i,column=j)
-                
                 matrix[i].append(e)
             
         return matrix
+    
+    def save(self):
+        
+        try:
+            file = open(asksaveasfilename(defaultextension='.sudoku', filetypes=[('Default', '.sudoku')]), 'w')
+        except(Exception):
+            return
+        
+        for i in range(9):
+            for j in range(9):
+                file.write(self.matrix[i][j].get() + ',')
+            file.write('\n')
+        
+        return
+    
+    def load(self):
+        
+        try:
+            file = open(askopenfilename(defaultextension='.sudoku', filetypes=[('Default', '.sudoku')]), 'rU')
+        except(Exception):
+            return
+        
+        counter_row = 0
+        for row in file:
+            
+            counter_c = 0
+            for c in row.split(',')[:-1]:
+                e = self.matrix[counter_row][counter_c]
+                e.delete(0, tkinter.END)
+                e.insert(0, c)
+                counter_c += 1
+                
+            counter_row += 1
+        
+        return
+    
+    def clear(self):
+        for row in self.matrix:
+            for entry in row:
+                entry.delete(0, tkinter.END)
     
     def solve(self):
         
@@ -58,6 +98,9 @@ class GUI:
         
         return
     
+    def terminate(self):
+        sys.exit()
+    
     def main(self):
         
         root = tkinter.Tk()
@@ -66,8 +109,11 @@ class GUI:
         f_upper = tkinter.Frame(root); f_upper.grid(row=1,column=1)
         f_lower = tkinter.Frame(root, padx=10, pady=10); f_lower.grid(row=2,column=1);
         
-        tkinter.Button(f_upper, text="Solve", command=self.solve).grid(row=1,column=1)
-        tkinter.Button(f_upper, text="Quit",  command=lambda: sys.exit()).grid(row=1,column=2)
+        tkinter.Button(f_upper, text="Save",  command=self.save).grid(     row=1,column=0)
+        tkinter.Button(f_upper, text="Load",  command=self.load).grid(     row=1,column=1)
+        tkinter.Button(f_upper, text="Clear", command=self.clear).grid(    row=1,column=2)
+        tkinter.Button(f_upper, text="Solve", command=self.solve).grid(    row=1,column=3)
+        tkinter.Button(f_upper, text="Quit",  command=self.terminate).grid(row=1,column=4)
         
         self.matrix = self.generateEntryMatrix(f_lower)
         
