@@ -6,7 +6,7 @@ import sys
 class GUI:
     def generateEntryMatrix(self, frame):
         
-        matrix = [[]] * 9
+        matrix = [[] for i in range(9)]
         
         for i in range(9):
             for j in range(9):
@@ -25,14 +25,15 @@ class GUI:
                 value = self.matrix[i][j].get()
                 if value != '':
                     st.addValue(i, j, int(value))
-                
         
         solver = sudoku.Solver();
         solution = solver.findSolution(st);
         
         for i in range(9):
             for j in range(9):
-                self.matrix[i][j].insert(1, solution._m_val[i][j])
+                e = self.matrix[i][j]
+                e.delete(0, tkinter.END)
+                e.insert(0, str(solution._m_val[i][j]))
         
         return
     
