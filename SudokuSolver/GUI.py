@@ -15,11 +15,9 @@ class GUI:
         
         for i in range(9):
             for j in range(9):
+                e = tkinter.Entry(frame, width=3, justify=tkinter.CENTER)
                 if (j in one_three and i not in two) or (j not in one_three and i in two):
-                    e = tkinter.Entry(frame, width=3, justify=tkinter.CENTER, bg="gray")
-                else:
-                    e = tkinter.Entry(frame, width=3, justify=tkinter.CENTER)
-                    
+                    e.config(bg="gray")
                 e.grid(row=i,column=j)
                 matrix[i].append(e)
             
@@ -109,11 +107,11 @@ class GUI:
         f_upper = tkinter.Frame(root); f_upper.grid(row=1,column=1)
         f_lower = tkinter.Frame(root, padx=10, pady=10); f_lower.grid(row=2,column=1);
         
-        tkinter.Button(f_upper, text="Save",  command=self.save).grid(     row=1,column=0)
-        tkinter.Button(f_upper, text="Load",  command=self.load).grid(     row=1,column=1)
-        tkinter.Button(f_upper, text="Clear", command=self.clear).grid(    row=1,column=2)
-        tkinter.Button(f_upper, text="Solve", command=self.solve).grid(    row=1,column=3)
-        tkinter.Button(f_upper, text="Quit",  command=self.terminate).grid(row=1,column=4)
+        tkinter.Button(f_upper, text="Save",  command=self.save).grid(     row=0,column=0)
+        tkinter.Button(f_upper, text="Load",  command=self.load).grid(     row=0,column=1)
+        tkinter.Button(f_upper, text="Clear", command=self.clear).grid(    row=0,column=2)
+        tkinter.Button(f_upper, text="Solve", command=self.solve).grid(    row=0,column=3)
+        tkinter.Button(f_upper, text="Quit",  command=self.terminate).grid(row=0,column=4)
         
         self.matrix = self.generateEntryMatrix(f_lower)
         
