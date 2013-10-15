@@ -1,9 +1,13 @@
 import sudoku
 
 import tkinter
-from tkinter.messagebox import showerror
+from tkinter.messagebox import showerror, showinfo
 from tkinter.filedialog import askopenfilename, asksaveasfilename
 import sys
+import time
+
+def current_milli_time(): 
+    return int(round(time.time() * 1000))
 
 class GUI:
     def generateEntryMatrix(self, frame):
@@ -74,18 +78,20 @@ class GUI:
                     try:
                         value = int(value)
                     except(ValueError):
-                        showerror("Error!", "You can only have numbers in the puzzle!")
+                        showerror("Error", "You can only have numbers in the puzzle!")
                         return
                     if value <= 0 or value >= 10:
-                        showerror("Error!", "You have entered an incorrect value in the table!")
+                        showerror("Error", "You have entered an incorrect value in the table!")
                         return
                     st.addValue(i, j, value)
         
-        solver = sudoku.Solver();
+        start    = current_milli_time()
+        solver   = sudoku.Solver();
         solution = solver.findSolution(st);
+        time     = (current_milli_time() - start)/1000
         
         if solution == None:
-            showerror("Warning!", "Something went wrong when trying to solve the sudoku!")
+            showerror("Warning", "Something went wrong when trying to solve the sudoku!")
             return
         
         for i in range(9):
@@ -93,6 +99,8 @@ class GUI:
                 e = self.matrix[i][j]
                 e.delete(0, tkinter.END)
                 e.insert(0, str(solution._m_val[i][j]))
+                
+        showinfo("Success", "The solution was found in %d seconds." %time)
         
         return
     
