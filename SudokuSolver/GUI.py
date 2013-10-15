@@ -100,7 +100,7 @@ class GUI:
                 e.delete(0, tkinter.END)
                 e.insert(0, str(solution._m_val[i][j]))
                 
-        showinfo("Success", "The solution was found in %d seconds." %time)
+        showinfo("Success", "The solution was found in %f seconds." %time)
         
         return
     
