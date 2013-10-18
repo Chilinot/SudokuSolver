@@ -27,14 +27,9 @@ class SudokuTable: # (object)
 		self._m_OptionMatrix =[[OptionList() for j in range(9)] for i in range(9)]
 		i = 0
 		
-		if st is None:
-			for i in range(9):
-				for j in range(9):
-					self._m_val[i][j] = 0
-		else:
-			for i in range(9):
-				for j in range(9):
-					self._m_val[i][j] = st._m_val[i][j]
+		for i in range(9):
+			for j in range(9):
+				self._m_val[i][j] = 0 if st == None else st._m_val[i][j]
 					
 	def stIsNoneContructor(self, st):  #sudoku table initiate
 		self._m_val = [[int for j in range(9)] for i in range(9)]
