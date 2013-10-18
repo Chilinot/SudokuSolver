@@ -23,27 +23,19 @@ class OptionList:  # one position with all its options
 class SudokuTable: # (object)
 	def __init__(self, st = None):  #default initiate
 		
+		self._m_val = [[int for j in range(9)] for i in range(9)]
+		self._m_OptionMatrix =[[OptionList() for j in range(9)] for i in range(9)]
+		i = 0
 		
 		if st is None:
-			self._m_val = [[int for j in range(9)] for i in range(9)]
-			self._m_OptionMatrix = [[OptionList() for j in range(9)] for i in range(9)]
-			i = 0
-			while i < 9:
-				j = 0
-				while j < 9:
+			for i in range(9):
+				for j in range(9):
 					self._m_val[i][j] = 0
-					j += 1
-				i += 1
 		else:
-			self._m_val = [[int for j in range(9)] for i in range(9)]
-			self._m_OptionMatrix =[[OptionList() for j in range(9)] for i in range(9)]
-			i = 0
-			while i < 9:
-				j = 0
-				while j < 9:
+			for i in range(9):
+				for j in range(9):
 					self._m_val[i][j] = st._m_val[i][j]
-					j += 1
-				i += 1
+					
 	def stIsNoneContructor(self, st):  #sudoku table initiate
 		self._m_val = [[int for j in range(9)] for i in range(9)]
 		self._m_OptionMatrix =[[OptionList() for j in range(9)] for i in range(9)]
