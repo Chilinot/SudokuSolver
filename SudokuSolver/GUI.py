@@ -11,6 +11,12 @@ def current_milli_time():
 
 class GUI:
     def generateEntryMatrix(self, frame):
+        '''
+        Generates a matrix of Entry-widgets with a total of 81 objects (9x9).
+        
+        RETURNS:
+            2D-list : A two-dimensional list that is the matrix generated.
+        '''
         
         one_three = [0,1,2,6,7,8]
         two       = [3,4,5]
@@ -28,7 +34,9 @@ class GUI:
         return matrix
     
     def save(self):
-        
+        '''
+        Saves the current board/matrix into a textfile.
+        '''
         try:
             file = open(asksaveasfilename(defaultextension='.sudoku', filetypes=[('Default', '.sudoku')]), 'w')
         except(Exception):
@@ -38,11 +46,11 @@ class GUI:
             for j in range(9):
                 file.write(self.matrix[i][j].get() + ',')
             file.write('\n')
-        
-        return
     
     def load(self):
-        
+        '''
+        Loads a given savefile into the board/matrix.
+        '''
         try:
             file = open(askopenfilename(defaultextension='.sudoku', filetypes=[('Default', '.sudoku')]), 'rU')
         except(Exception):
@@ -59,15 +67,21 @@ class GUI:
                 counter_c += 1
                 
             counter_row += 1
-        
-        return
     
     def clear(self):
+        '''
+        Empties/resets the board/matrix.
+        '''
         for row in self.matrix:
             for entry in row:
                 entry.delete(0, tkinter.END)
     
     def solve(self):
+        '''
+        Solves the current sudoko in the matrix by using the sudoku-module.
+        When the sudoku has been solved, it writes the solution onto the board and displays a success window
+        that also shows the amount of time it took to solve it.
+        '''
         
         st = sudoku.SudokuTable()
         
@@ -105,15 +119,22 @@ class GUI:
         return
     
     def terminate(self):
+        '''
+        Terminates the program.
+        '''
         sys.exit()
     
     def main(self):
-        
+        '''
+        Creates a new Tkinter-window that is this wrappers GUI.
+        '''
         root = tkinter.Tk()
         root.title("SudokuSolver")
         
-        f_upper = tkinter.Frame(root); f_upper.grid(row=1,column=1)
-        f_lower = tkinter.Frame(root, padx=10, pady=10); f_lower.grid(row=2,column=1);
+        f_upper = tkinter.Frame(root)
+        f_lower = tkinter.Frame(root, padx=10, pady=10)
+        f_upper.grid(row=1,column=1)
+        f_lower.grid(row=2,column=1)
         
         tkinter.Button(f_upper, text="Save",  command=self.save).grid(     row=0,column=0)
         tkinter.Button(f_upper, text="Load",  command=self.load).grid(     row=0,column=1)
