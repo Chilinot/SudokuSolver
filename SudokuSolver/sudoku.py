@@ -13,7 +13,6 @@ class SudokuTable: # (object)
 		
 		self._m_val = [[int for j in range(9)] for i in range(9)]
 		self._m_OptionMatrix =[[OptionList() for j in range(9)] for i in range(9)]
-		i = 0
 		
 		for i in range(9):
 			for j in range(9):
