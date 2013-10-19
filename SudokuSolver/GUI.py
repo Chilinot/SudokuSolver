@@ -14,6 +14,9 @@ class GUI:
         '''
         Generates a matrix of Entry-widgets with a total of 81 objects (9x9).
         
+        PARAMETERS:
+            Frame - the frame that the matrix should be displayed in.
+        
         RETURNS:
             2D-list : A two-dimensional list that is the matrix generated.
         '''
