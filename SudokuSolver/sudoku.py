@@ -9,7 +9,10 @@ class OptionList:  # one position with all its options
 		self.options = list()
 
 class SudokuTable: # (object)
-	def __init__(self, st = None):  #initiate
+	def __init__(self, st = None):
+		'''
+		Constructor for the SudokuTable-object.
+		'''
 		
 		self._m_val = [[int for j in range(9)] for i in range(9)]
 		self._m_OptionMatrix =[[OptionList() for j in range(9)] for i in range(9)]
@@ -18,10 +21,23 @@ class SudokuTable: # (object)
 			for j in range(9):
 				self._m_val[i][j] = 0 if st == None else st._m_val[i][j]
         
-	def addValue(self, i, j, value):  
+	def addValue(self, i, j, value):
+		'''
+		Sets the value of a position at the given coordinates.
+		
+		PARAMETERS:
+			i - The row coordinate.
+			j - The column coordinate.
+		'''
 		self._m_val[i][j] = value
 
 	def getLowestNumberOfOptionsList(self):
+		'''
+		Loops over each OptionList generated and returns the one with the lowest amount of alternatives.
+		
+		RETURNS:
+			The OptionList with the lowest amount of alternatives in the grid.
+		'''
 		self.computeAllOptions()
 		minCount = 999999  #initiate minimum number of option counting as max value of integer, here is 999999
 		minOp = OptionList()
@@ -37,6 +53,17 @@ class SudokuTable: # (object)
 		return minOp
 
 	def findPossibilities(self, i, j):
+		'''
+		Loops over each column, row and block and collects creates a new OptionList-object that
+		contains every integer possibility for that position.
+		
+		PARAMETERS:
+			i - The row coordinate.
+			j - The column coordinate.
+		
+		RETURNS:
+			Returns the new OptionList created containing all possibilities for that position in the grid.
+		'''
 		op = OptionList()
 		if self._m_val[i][j] != 0:
 			return op
@@ -84,6 +111,13 @@ class SudokuTable: # (object)
 		return op
 
 	def isSolved(self):
+		'''
+		Calculates if the current solution is correct by comparing 
+		each row, column and block to a pre-set checksum.
+		
+		RETURNS:
+			Boolean - True if the solution is correct, otherwise false.
+		'''
 		checkSum = 45 # 9+8+7...+ 1
 		# Check row and column sums
 		j = 0
@@ -118,6 +152,9 @@ class SudokuTable: # (object)
 		return True
 
 	def computeAllOptions(self):
+		'''
+		Loops over each position in the SudokuTable and calls findPossibilites for each one.
+		'''
 		i = 0
 		while i < 9:
 			j = 0
@@ -127,6 +164,9 @@ class SudokuTable: # (object)
 			i += 1
 
 	def computeAllSingles(self):
+		'''
+		TODO - Add spec
+		'''
 		NbLowestOptions = len(self.getLowestNumberOfOptionsList().options)
 		while NbLowestOptions < 2 and NbLowestOptions != 0:
 			i = 0
