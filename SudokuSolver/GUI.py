@@ -10,6 +10,29 @@ def current_milli_time():
     return int(round(time.time() * 1000))
 
 class GUI:
+    
+    def __init__(self):
+        '''
+        Initiates the GUI
+        '''
+        root = tkinter.Tk()
+        root.title("SudokuSolver")
+        
+        f_upper = tkinter.Frame(root)
+        f_lower = tkinter.Frame(root, padx=10, pady=10)
+        f_upper.grid(row=1,column=1)
+        f_lower.grid(row=2,column=1)
+        
+        tkinter.Button(f_upper, text="Save",  command=self.save).grid(     row=0,column=0)
+        tkinter.Button(f_upper, text="Load",  command=self.load).grid(     row=0,column=1)
+        tkinter.Button(f_upper, text="Clear", command=self.clear).grid(    row=0,column=2)
+        tkinter.Button(f_upper, text="Solve", command=self.solve).grid(    row=0,column=3)
+        tkinter.Button(f_upper, text="Quit",  command=self.terminate).grid(row=0,column=4)
+        
+        self.matrix = self.generateEntryMatrix(f_lower)
+        
+        root.mainloop()
+    
     def generateEntryMatrix(self, frame):
         '''
         Generates a matrix of Entry-widgets with a total of 81 objects (9x9).
@@ -127,27 +150,5 @@ class GUI:
         '''
         sys.exit()
     
-    def main(self):
-        '''
-        Creates a new Tkinter-window that is this wrappers GUI.
-        '''
-        root = tkinter.Tk()
-        root.title("SudokuSolver")
-        
-        f_upper = tkinter.Frame(root)
-        f_lower = tkinter.Frame(root, padx=10, pady=10)
-        f_upper.grid(row=1,column=1)
-        f_lower.grid(row=2,column=1)
-        
-        tkinter.Button(f_upper, text="Save",  command=self.save).grid(     row=0,column=0)
-        tkinter.Button(f_upper, text="Load",  command=self.load).grid(     row=0,column=1)
-        tkinter.Button(f_upper, text="Clear", command=self.clear).grid(    row=0,column=2)
-        tkinter.Button(f_upper, text="Solve", command=self.solve).grid(    row=0,column=3)
-        tkinter.Button(f_upper, text="Quit",  command=self.terminate).grid(row=0,column=4)
-        
-        self.matrix = self.generateEntryMatrix(f_lower)
-        
-        root.mainloop()
-    
 if __name__ == "__main__":
-    GUI().main()
+    GUI()
