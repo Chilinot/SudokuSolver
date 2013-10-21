@@ -183,7 +183,7 @@ class Node(object):
 		Creates a new SudokuTable by copying this nodes SudokuTable, then sets the value using the data in the
 		options parameter to the new SudokuTable and creates a new child-Node with that table.
 		
-		PARAMTERS:
+		PARAMETERS:
 			op - Option-object
 		'''
 		# Create new table
