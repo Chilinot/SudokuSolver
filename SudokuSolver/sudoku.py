@@ -65,23 +65,24 @@ class SudokuTable: # (object)
 			Returns the new OptionList created containing all possibilities for that position in the grid.
 		'''
 		op = OptionList()
+		
 		if self._m_val[i][j] != 0:
 			return op
+		
 		l = list()
+		
 		# Check the numbers on this row
-		x = 0
-		while x < 9:
+		for x in range(9):
 			if self._m_val[i][x] != 0:
 				if (self._m_val[i][x]) not in l:
 					l.append(self._m_val[i][x])
-			x += 1
+		
 		# Check the numbers on this column
-		y = 0
-		while y < 9:
+		for y in range(9):
 			if self._m_val[y][j] != 0:
 				if (self._m_val[y][j]) not in l:
 					l.append(self._m_val[y][j])
-			y += 1
+		
 		# Check the numbers in my BLOCK
 		rowBlock = int(i / 3)
 		colBlock = int(j / 3)
@@ -94,6 +95,7 @@ class SudokuTable: # (object)
 						l.append(self._m_val[y][x])
 				x += 1
 			y += 1
+		
 		if len(l) != 9:
 			idx = 1
 			while idx <= 9:
@@ -119,49 +121,41 @@ class SudokuTable: # (object)
 			Boolean - True if the solution is correct, otherwise false.
 		'''
 		checkSum = 45 # 9+8+7...+ 1
+		
 		# Check row and column sums
-		j = 0
-		while j < 9:
+		for j in range(9):
 			rowSum = 0
 			colSum = 0
-			i = 0
-			while i < 9:
+			
+			for i in range(9):
 				rowSum += self._m_val[i][j]
 				colSum += self._m_val[j][i]
-				i += 1
+				
 			if rowSum != checkSum or colSum != checkSum:
 				return False
-			j += 1
+		
 		# Check block sum
-		by = 0
-		while by < 3:
-			bx = 0
-			while bx < 3:
+		
+		for by in range(3):
+			for bx in range(3):
 				sum = 0
-				y = 0
-				while y < 3:
-					x = 0
-					while x < 3:
+				
+				for y in range(3):
+					for x in range(3):
 						sum += self._m_val[y + by * 3][x + bx * 3]
-						x += 1
-					y += 1
+						
 				if sum != checkSum:
 					return False
-				bx += 1
-			by += 1
+				
 		return True
 
 	def computeAllOptions(self):
 		'''
 		Loops over each position in the SudokuTable and calls findPossibilites for each one.
 		'''
-		i = 0
-		while i < 9:
-			j = 0
-			while j < 9:
+		for i in range(9):
+			for j in range(9):
 				self._m_OptionMatrix[i][j] = self.findPossibilities(i, j)
-				j += 1
-			i += 1
 
 	def computeAllSingles(self):
 		'''
