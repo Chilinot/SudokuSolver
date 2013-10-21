@@ -182,13 +182,11 @@ class SudokuTable: # (object)
 
 class Node(object):
 	def __init__(self, st = None):
-	
-		if st is None:
-			self._m_SudokuTable = SudokuTable()
-			self._m_children = list()
-		else:
-			self._m_SudokuTable = SudokuTable(st)
-			self._m_children = list()
+		'''
+		Constructor for the Node-object.
+		'''
+		self._m_SudokuTable = SudokuTable(st)
+		self._m_children = list()
 
 	# For each new option we create a child with a new sodoku table
 	def addOption(self, op):
