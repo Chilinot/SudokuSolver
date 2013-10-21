@@ -181,7 +181,7 @@ class Node(object):
 	def addOption(self, op):
 		'''
 		Creates a new SudokuTable by copying this nodes SudokuTable, then sets the value using the data in the
-		options paramater to the new SudokuTable and creates a new child-Node with that table.
+		options parameter to the new SudokuTable and creates a new child-Node with that table.
 		
 		PARAMTERS:
 			op - Option-object
