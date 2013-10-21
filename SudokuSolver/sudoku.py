@@ -186,25 +186,49 @@ class Node(object):
 		'''
 		# Create new table
 		newTable = SudokuTable(self._m_SudokuTable)
+		
 		# Add new option to this table
 		newTable.addValue(op.i, op.j, op.value)
+		
 		# Create new node with the new table
 		newNode = Node(newTable)
+		
 		self._m_children.append(newNode)
 
 class Solver(object):
 	def __init__(self):
+		'''
+		Constructor for Solver-object.
+		'''
 		self.FinalSolution = None
+	
 	def findSolution(self, SudokuTable):
+		'''
+		Tries to find the solution for the given SudokuTable-object.
+		
+		PARAMETERS:
+			SudokuTable - SudokuTable-object to solve.
+		
+		RETURNS:
+			SudokutTable-object with solution if found, else it returns None.
+		'''
+		
 		root = Node(SudokuTable)
+		
+		# HERE WE GOO! Creates a lot of nodes, one for each alternative.
 		self.investigateOptions(root)
+		
+		# Checks if the solution was found in any of the nodes.
 		solution = None
 		if self.FinalSolution != None:
 			solution = self.FinalSolution._m_SudokuTable
+			
 		return solution
 
 	def investigateOptions(self, root):
-
+		'''
+		
+		'''
 		root._m_SudokuTable.computeAllSingles()
 		
 		if root._m_SudokuTable.isSolved():
