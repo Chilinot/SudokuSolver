@@ -167,17 +167,13 @@ class SudokuTable: # (object)
 		'''
 		
 		'''
-		NbLowestOptions = len(self.getLowestNumberOfOptionsList().options)
-		
-		while NbLowestOptions < 2 and NbLowestOptions != 0:
+		while len(self.getLowestNumberOfOptionsList().options) == 1:
 			
 			for i in range(9):
 				for j in range(9):
 					opt = self.findPossibilities(i, j)
 					if len(opt.options) == 1:
 						self._m_val[i][j] = opt.options[0].value
-						
-			NbLowestOptions = len(self.getLowestNumberOfOptionsList().options)
 
 class Node(object):
 	def __init__(self, st = None):
