@@ -41,15 +41,13 @@ class SudokuTable: # (object)
 		self.computeAllOptions()
 		minCount = 999999  #initiate minimum number of option counting as max value of integer, here is 999999
 		minOp = OptionList()
-		i = 0
-		while i < 9:
-			j = 0
-			while j < 9:
+		
+		for i in range(9):
+			for j in range(9):
 				if len(self._m_OptionMatrix[i][j].options) < minCount and len(self._m_OptionMatrix[i][j].options) != 0:
 					minOp = self._m_OptionMatrix[i][j]
 					minCount = len(minOp.options)
-				j += 1
-			i += 1
+		
 		return minOp
 
 	def findPossibilities(self, i, j):
