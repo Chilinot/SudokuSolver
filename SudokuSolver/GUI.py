@@ -44,8 +44,8 @@ class GUI:
             2D-list : A two-dimensional list that is the matrix generated.
         '''
         
-        one_three = [0,1,2,6,7,8]   # Row one and three
-        two       = [3,4,5]         # Row two
+        one_three = [0,1,2,6,7,8]   # "Blockrow" one and three
+        two       = [3,4,5]         # "Blockrow" two
         
         matrix = [[] for i in range(9)]
         
