@@ -165,7 +165,7 @@ class SudokuTable: # (object)
 
 	def computeAllSingles(self):
 		'''
-		
+		Checks all OptionList-objects for single alternatives, if found, it puts the alternative in the table.
 		'''
 		while len(self.getLowestNumberOfOptionsList().options) == 1:
 			
