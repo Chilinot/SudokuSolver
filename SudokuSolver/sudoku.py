@@ -20,7 +20,7 @@ class SudokuTable: # (object)
 		for i in range(9):
 			for j in range(9):
 				self._m_val[i][j] = 0 if st == None else st._m_val[i][j]
-        
+	
 	def addValue(self, i, j, value):
 		'''
 		Sets the value of a position at the given coordinates.
