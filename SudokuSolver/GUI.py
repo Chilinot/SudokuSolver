@@ -109,7 +109,7 @@ class GUI:
         that also shows the amount of time it took to solve it.
         '''
         
-        st = sudoku.SudokuTable()
+        st = sudoku.SudokuTable(frame=self)
         
         for i in range(9):
             for j in range(9):
@@ -127,7 +127,7 @@ class GUI:
         
         start    = current_milli_time()
         solver   = sudoku.Solver();
-        solution = solver.findSolution(st);
+        solution = solver.findSolution(self, st);
         time     = (current_milli_time() - start)/1000
         
         if solution == None:
@@ -149,6 +149,12 @@ class GUI:
         Terminates the program.
         '''
         sys.exit()
+        
+    def setValue(self, i, j, value):
+        e = self.matrix[i][j]
+        e.delete(0, tkinter.END)
+        e.insert(0, value)
+        time.sleep(1)
     
 if __name__ == "__main__":
     GUI()

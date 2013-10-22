@@ -9,10 +9,12 @@ class OptionList:  # one position with all its options
 		self.options = list()
 
 class SudokuTable: # (object)
-	def __init__(self, st = None):
+	def __init__(self, frame, st = None):
 		'''
 		Constructor for the SudokuTable-object.
 		'''
+		
+		self.frame = frame
 		
 		self._m_val = [[int for j in range(9)] for i in range(9)]
 		self._m_OptionMatrix =[[OptionList() for j in range(9)] for i in range(9)]
@@ -30,6 +32,7 @@ class SudokuTable: # (object)
 			j - The column coordinate.
 		'''
 		self._m_val[i][j] = value
+		self.frame.setValue(i,j,value)
 
 	def getLowestNumberOfOptionsList(self):
 		'''
@@ -168,12 +171,14 @@ class SudokuTable: # (object)
 						self._m_val[i][j] = opt.options[0].value
 
 class Node(object):
-	def __init__(self, st = None):
+	def __init__(self, frame, st = None):
 		'''
 		Constructor for the Node-object.
 		'''
-		self._m_SudokuTable = SudokuTable(st)
+		self._m_SudokuTable = SudokuTable(frame, st)
 		self._m_children = list()
+		
+		self.frame = frame
 
 	# For each new option we create a child with a new sodoku table
 	def addOption(self, op):
@@ -185,13 +190,13 @@ class Node(object):
 			op - Option-object
 		'''
 		# Create new table
-		newTable = SudokuTable(self._m_SudokuTable)
+		newTable = SudokuTable(self.frame, self._m_SudokuTable)
 		
 		# Add new option to this table
 		newTable.addValue(op.i, op.j, op.value)
 		
 		# Create new node with the new table
-		newNode = Node(newTable)
+		newNode = Node(self.frame, newTable)
 		
 		self._m_children.append(newNode)
 
@@ -202,7 +207,7 @@ class Solver(object):
 		'''
 		self.FinalSolution = None
 	
-	def findSolution(self, SudokuTable):
+	def findSolution(self, frame, st):
 		'''
 		Tries to find the solution for the given SudokuTable-object.
 		
@@ -213,7 +218,7 @@ class Solver(object):
 			SudokutTable-object with solution if found, else it returns None.
 		'''
 		
-		root = Node(SudokuTable)
+		root = Node(frame, st)
 		
 		# HERE WE GOO! Creates a lot of nodes, one for each alternative.
 		self.investigateOptions(root)
